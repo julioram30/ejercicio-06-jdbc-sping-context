@@ -14,8 +14,10 @@
         <property name="password" value="${datasource.password}"/>
         <property name="databaseName" value="${datasource.database}"/>
     </bean>
-
-    <context:property-placeholder location="jdbc.properties"/>
+	<bean id="myDataSource" class="com.mysql.cj.jdbc.Driver">
+        
+    </bean>
+    <context:property-placeholder location="jdbc.properties,myjdbc.properties"/>
     <context:component-scan base-package="com.eiv" />
 
 </beans>

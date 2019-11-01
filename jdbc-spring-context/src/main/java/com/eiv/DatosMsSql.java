@@ -1,23 +1,23 @@
 package com.eiv;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class DatosMsSql implements Datos {
+    
+    @Autowired private Connection connection;
     
     public String show(String sql) {
         
-        ConexionMssql msConn = new ConexionMssql();
-        Connection conn = null;
-        try {
-            
-           
-            PreparedStatement stmt = conn.prepareStatement(sql);
-                     
-            ResultSet rsMSsql = stmt.executeQuery();
-           
+        try (Statement stmt = connection.createStatement() ;
+            ResultSet rsMSsql = stmt.executeQuery(sql))
+        {
             while (rsMSsql.next()) {
                 System.out.println(rsMSsql.getString("loc_postal") + " " 
                         + rsMSsql.getString("descripcion"));

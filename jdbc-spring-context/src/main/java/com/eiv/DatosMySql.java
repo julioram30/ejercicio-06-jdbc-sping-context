@@ -1,37 +1,31 @@
 package com.eiv;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class DatosMySql implements Datos {
 
-    @Override
+    @Autowired private Connection connection;
     public String show(String sql) {
 
-        ConexionMySql myConn = new ConexionMySql();
-        Connection con = null;
-        
-
-        try {
-
-            con = myConn.conectar(
-                    "jdbc:mysql://localhost:3306/testjava" 
-                  + "?useLegacyDatetimeCode=false&serverTimezone=UTC", "root",
-                    "S1rm32nt4756", "3306");
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rsMySql = stmt.executeQuery();
-
+        try (Statement stmt = connection.createStatement() ;
+            ResultSet rsMySql = stmt.executeQuery(sql))
+        {
             while (rsMySql.next()) {
-                System.out.println(rsMySql.getString("ID") + " " 
+                System.out.println(rsMySql.getString("loc_postal") + " " 
                         + rsMySql.getString("descripcion"));
             }
 
-        } catch (SQLException e1) {
-
-            e1.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+       
         return null;
     }
 }
