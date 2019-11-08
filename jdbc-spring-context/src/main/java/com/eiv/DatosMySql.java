@@ -18,7 +18,7 @@ public class DatosMySql implements Datos {
             ResultSet rsMySql = stmt.executeQuery(sql))
         {
             while (rsMySql.next()) {
-                System.out.println(rsMySql.getString("loc_postal") + " " 
+                System.out.println(rsMySql.getString("ID") + " " 
                         + rsMySql.getString("descripcion"));
             }
 

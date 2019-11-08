@@ -3,6 +3,9 @@ package com.eiv;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.mysql.cj.jdbc.Driver;
+import com.mysql.cj.jdbc.MysqlDataSource;
+
 public class App {
     public static final ApplicationContext CTX;
     
@@ -17,15 +20,14 @@ public class App {
         
         // MS SQL
         
-        String sql = "SELECT TOP 10 * FROM LOCALIDAD";
+        String sql = "SELECT * FROM LOCALIDAD";
         datosMsSql.show(sql);
 
         
         // MySQL
         
-        
-        sql = "SELECT * FROM LOCALIDAD";
-       // DatosMySql datosMySql = new DatosMySql();
-        datosMySql.show(sql);
+        String mySql = "SELECT * FROM localidad";
+        //DatosMySql datosMySql1 = new DatosMySql();
+        datosMySql.show(mySql);
     }
 }
